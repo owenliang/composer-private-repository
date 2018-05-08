@@ -350,15 +350,7 @@ composer create-project composer/satis:dev-master --keep-vcs
   "repositories": [
     {
         "type": "git",
-        "url": "https://gitlab-team.baidu.com/baidu/php-common",
-        "options": {
-          "http-basic": {
-            "gitlab-team.baidu.com": {
-              "username": "owenliang",
-              "password": "baidu1234567890"
-            }
-          }
-        }
+        "url": "https://gitlab-team.baidu.com/baidu/php-common"
     }
   ],
   "require": {
@@ -369,10 +361,18 @@ composer create-project composer/satis:dev-master --keep-vcs
 
 * name: 私有仓库的名字，最终会展现在UI界面上
 * homepage: 私有仓库的服务地址，未来会替换为https协议
-* repositories：所有要发布的包地址，因为公司的gitlab采用ldap认证，所以需要配置http-basic帐号密码。
+* repositories：所有要发布的包地址
 * require: 指定索引哪些包的哪些版本，这里我指定索引baidu/common包的所有版本。
 
 千万不要使用require-all选项，而是应该在require中罗列每个包（require-all的意思是将官方仓库的所有包索引到本地，对我们毫无意义）。
+
+因为我的gitlab采用帐号密码认证，所以需要为composer配置gitlab帐号密码:
+
+```
+composer config -g http-basic.gitlab-team.smzdm.com liangdong baidu@123
+```
+
+帐号密码被保存在~/.composer/auth.json中。
 
 ### 定时更新仓库索引
 
